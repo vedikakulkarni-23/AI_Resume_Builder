@@ -13,10 +13,15 @@ const PORT = process.env.PORT || 3000;
 await connectDB()
 
 app.use(express.json())
+const cors = require("cors");
+
 app.use(cors({
-    origin: "*", // allow Netlify & testing
-    credentials: true,
-  }))
+  origin: [
+    "http://localhost:3000",
+    "https://your-netlify-site-name.netlify.app"
+  ],
+  credentials: true
+}));
 
 app.get('/', (req, res)=> res.send("Server is Live..."))
 
