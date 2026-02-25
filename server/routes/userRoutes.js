@@ -5,9 +5,9 @@ import protect from '../middlewares/authMiddleware.js';
 
 const userRouter = express.Router();
 
-userRouter.post('/api/register', registerUser)
-userRouter.post('/api/login', loginUser)
-userRouter.get('/api/data', protect, getUserById)
-userRouter.get('/api/resumes', protect, getUserResumes)
+userRouter.post('/register', registerUser)
+userRouter.post('/login', loginUser)
+userRouter.get('/data', protect, getUserById)
+userRouter.get('/resumes', protect, getUserResumes)
 
 export default userRouter;
