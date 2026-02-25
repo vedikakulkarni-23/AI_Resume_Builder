@@ -25,7 +25,7 @@ const Dashboard = () => {
 
   const loadAllResumes = async () =>{
     try {
-      const {data} = await api.get('/users/resumes', {headers: {
+      const {data} = await api.get('/api/users/resumes', {headers: {
         Authorization: token
       }})
       setAllResumes(data.resumes)
@@ -37,13 +37,13 @@ const Dashboard = () => {
   const createResume = async (event) => {
     try {
       event.preventDefault()
-      const {data} = await api.post('/resumes/create', {title}, {headers: {
+      const {data} = await api.post('/api/resumes/create', {title}, {headers: {
         Authorization: token
       }})
       setAllResumes([...allResumes, data.resume])
       setTitle('')
       setShowCreateResume(false)
-      navigate(`/app/builder/${data.resume._id}`)
+      navigate(`/api/app/builder/${data.resume._id}`)
     } catch (error) {
       toast.error(error?.response?.data?.message || error.message)
     }
@@ -54,13 +54,13 @@ const Dashboard = () => {
     setIsLoading(true)
     try {
       const resumeText = await pdftotext(resume)
-      const {data} = await api.post('/ai/upload-resume', {title, resumeText}, {headers: {
+      const {data} = await api.post('/api/ai/upload-resume', {title, resumeText}, {headers: {
         Authorization: token
       }})
       setTitle('')
       setResume(null)
       setShowUploadResume(false)
-      navigate(`/app/builder/${data.resumeId}`)
+      navigate(`/api/app/builder/${data.resumeId}`)
     } catch (error) {
       toast.error(error?.response?.data?.message || error.message)
     }
@@ -70,7 +70,7 @@ const Dashboard = () => {
   const editTitle = async(event) => {
     try {
       event.preventDefault()
-      const {data} = await api.put(`/resumes/update`, {resumeId: editResumeId, resumeData: {title}}, {headers: {
+      const {data} = await api.put(`/api/resumes/update`, {resumeId: editResumeId, resumeData: {title}}, {headers: {
         Authorization: token
       }})
       setAllResumes(allResumes.map(resume => resume._id === editResumeId ? {...resume, title} : resume))
@@ -86,7 +86,7 @@ const Dashboard = () => {
     try {
       const confirm = window.confirm('Are you sure you want to delete this resume?')
     if(confirm){
-      const {data} = await api.delete(`/resumes/delete/${resumeId}`, {headers: {
+      const {data} = await api.delete(`/api/resumes/delete/${resumeId}`, {headers: {
         Authorization: token
       }})
       setAllResumes(allResumes.filter(resume => resume._id !== resumeId))
@@ -124,7 +124,7 @@ const Dashboard = () => {
             {allResumes.map((resume, index) => {
               const baseColor = colors[index % colors.length]
               return (
-                <button key={index} onClick={()=> navigate(`/app/builder/${resume._id}`)} className='relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer' style={{background:`linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`, borderColor: baseColor + '40'}}>
+                <button key={index} onClick={()=> navigate(`/api/app/builder/${resume._id}`)} className='relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer' style={{background:`linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`, borderColor: baseColor + '40'}}>
                   <FilePenLineIcon className='size-7 group-hover:scale-105 transition-all' style={{color: baseColor}}/>
                   <p className='text-sm group-hover:scale-105 transition-all px-2 text-center' style={{color: baseColor}}>{resume.title}</p>
                   <p className='absolute bottom-1 text-[11px] text-slate-400 group-hover:text-slate-500 transition-all duration-300 px-2 text-center' style={{color: baseColor + '90'}}>

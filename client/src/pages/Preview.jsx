@@ -17,7 +17,7 @@ const [resumeData, setResumeDate] = useState(null)
 
 const loadResume = async () => {
   try {
-    const {data} = await api.get('/resumes/public/' + resumeId)
+    const {data} = await api.get('/api/resumes/public/' + resumeId)
     setResumeDate(data.resume)
   } catch (error) {
     console.log(error.message);
