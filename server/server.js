@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://your-actual-netlify-name.netlify.app"
+    "https://airesumebuilderwebsite.netlify.app/"
   ],
   credentials: true
 }));
