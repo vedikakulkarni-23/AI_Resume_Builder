@@ -9,29 +9,27 @@ import aiRouter from "./routes/aiRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-//database connection
-await connectDB()
+// DB connection
+await connectDB();
 
-app.use(express.json())
-const cors = require("cors");
+// middleware
+app.use(express.json());
 
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://airesumebuilderwebsite.netlify.app"
+    "https://your-actual-netlify-name.netlify.app"
   ],
   credentials: true
 }));
 
-app.get('/', (req, res)=> res.send("Server is Live..."))
+// routes
+app.get('/', (req, res)=> res.send("Server is Live..."));
 
-app.use('/api/users', userRouter)
-
-app.use('/api/resumes', resumeRouter)
-
-app.use('/api/ai', aiRouter)
+app.use('/api/users', userRouter);
+app.use('/api/resumes', resumeRouter);
+app.use('/api/ai', aiRouter);
 
 app.listen(PORT, ()=>{
     console.log(`Server is running on port ${PORT}`);
-    
-})
+});
