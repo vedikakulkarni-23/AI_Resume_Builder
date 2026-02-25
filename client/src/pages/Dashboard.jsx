@@ -43,7 +43,7 @@ const Dashboard = () => {
       setAllResumes([...allResumes, data.resume])
       setTitle('')
       setShowCreateResume(false)
-      navigate(`/api/app/builder/${data.resume._id}`)
+      navigate(`/app/builder/${data.resume._id}`)
     } catch (error) {
       toast.error(error?.response?.data?.message || error.message)
     }
@@ -60,7 +60,7 @@ const Dashboard = () => {
       setTitle('')
       setResume(null)
       setShowUploadResume(false)
-      navigate(`/api/app/builder/${data.resumeId}`)
+      navigate(`/app/builder/${data.resumeId}`)
     } catch (error) {
       toast.error(error?.response?.data?.message || error.message)
     }
@@ -124,7 +124,7 @@ const Dashboard = () => {
             {allResumes.map((resume, index) => {
               const baseColor = colors[index % colors.length]
               return (
-                <button key={index} onClick={()=> navigate(`/api/app/builder/${resume._id}`)} className='relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer' style={{background:`linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`, borderColor: baseColor + '40'}}>
+                <button key={index} onClick={()=> navigate(`/app/builder/${resume._id}`)} className='relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer' style={{background:`linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`, borderColor: baseColor + '40'}}>
                   <FilePenLineIcon className='size-7 group-hover:scale-105 transition-all' style={{color: baseColor}}/>
                   <p className='text-sm group-hover:scale-105 transition-all px-2 text-center' style={{color: baseColor}}>{resume.title}</p>
                   <p className='absolute bottom-1 text-[11px] text-slate-400 group-hover:text-slate-500 transition-all duration-300 px-2 text-center' style={{color: baseColor + '90'}}>
