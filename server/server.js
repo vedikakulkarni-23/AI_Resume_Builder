@@ -18,7 +18,7 @@ const cors = require("cors");
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://your-netlify-site-name.netlify.app"
+    "https://airesumebuilderwebsite.netlify.app"
   ],
   credentials: true
 }));
